@@ -25,10 +25,11 @@ public:
     void setFraction(int numerator, int denominator, bool simplification = shouldTheLowestTerms);
     int getNumerator() const;
     int getDenominator() const;
-    fractionType operator+(const fractionType& otherFraction) const;
-    fractionType operator-(const fractionType& otherFraction) const;
-    fractionType operator*(const fractionType& otherFraction) const;
-    fractionType operator/(const fractionType& otherFraction) const;
+    double getDouble() const;
+    friend fractionType operator+(const fractionType& otherFraction1, const fractionType& otherFraction2);
+    friend fractionType operator-(const fractionType& otherFraction1, const fractionType& otherFraction2);
+    friend fractionType operator*(const fractionType& otherFraction1, const fractionType& otherFraction2);
+    friend fractionType operator/(const fractionType& otherFraction1, const fractionType& otherFraction2);
     //Overload the relational operators
     friend bool operator == (const fractionType&, const fractionType&) ;
     friend bool operator != (const fractionType&, const fractionType&) ;

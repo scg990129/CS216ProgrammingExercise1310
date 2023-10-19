@@ -62,14 +62,54 @@ int fractionType::getDenominator() const{
     return denominator;
 }
 
+double fractionType::getDouble() const{
+    return (double)numerator/denominator;
+}
+
 bool operator == (const fractionType& fractionType1, const fractionType& fractionType2){
     fractionType reducaedFractionType1 = fractionType1.generateReducedFraction();
     fractionType reducaedFractionType2 = fractionType2.generateReducedFraction();
     return (reducaedFractionType1.numerator == reducaedFractionType2.numerator && reducaedFractionType1.denominator == reducaedFractionType2.denominator);
 }
 
-bool operator != (const fractionType&, const fractionType&) ;
-bool operator <= (const fractionType&, const fractionType&) ;
-bool operator < (const fractionType&, const fractionType&) ;
-bool operator >= (const fractionType&, const fractionType&) ;
-bool operator > (const fractionType&, const fractionType&) ;
+bool operator != (const fractionType& fractionType1, const fractionType& fractionType2){
+    return !(fractionType1 == fractionType2);
+}
+
+bool operator < (const fractionType& fractionType1, const fractionType& fractionType2){
+    return fractionType1.getDouble() < fractionType2.getDouble();
+}
+bool operator > (const fractionType& fractionType1, const fractionType& fractionType2){
+    return fractionType1.getDouble() > fractionType2.getDouble();
+}
+
+bool operator <= (const fractionType& fractionType1, const fractionType& fractionType2){
+    return (fractionType1 < fractionType2) || (fractionType1 == fractionType2);
+}
+bool operator >= (const fractionType& fractionType1, const fractionType& fractionType2){
+    return (fractionType1 > fractionType2) || (fractionType1 == fractionType2);
+}
+
+fractionType operator+(const fractionType& fractionType1, const fractionType& fractionType2){
+    int numerator = fractionType1.numerator * fractionType2.denominator + fractionType2.numerator * fractionType1.denominator;
+    int denominator = fractionType1.denominator * fractionType2.denominator;
+    return {numerator, denominator, fractionType::shouldTheLowestTerms};
+}
+
+fractionType operator-(const fractionType& fractionType1, const fractionType& fractionType2){
+    int numerator = fractionType1.numerator * fractionType2.denominator - fractionType2.numerator * fractionType1.denominator;
+    int denominator = fractionType1.denominator * fractionType2.denominator;
+    return {numerator, denominator, fractionType::shouldTheLowestTerms};
+}
+
+fractionType operator*(const fractionType& fractionType1, const fractionType& fractionType2){
+    int numerator = fractionType1.numerator * fractionType2.numerator;
+    int denominator = fractionType1.denominator * fractionType2.denominator;
+    return {numerator, denominator, fractionType::shouldTheLowestTerms};
+}
+
+fractionType operator/(const fractionType& fractionType1, const fractionType& fractionType2){
+    int numerator = fractionType1.numerator * fractionType2.denominator;
+    int denominator = fractionType1.denominator * fractionType2.numerator;
+    return {numerator, denominator, fractionType::shouldTheLowestTerms};
+}
